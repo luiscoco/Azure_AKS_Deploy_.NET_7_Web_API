@@ -1,4 +1,4 @@
-# How to deploy to Azure Kubernetes AKS a .NET7 Web API
+# How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
 ## 1. Prerequisites
 
