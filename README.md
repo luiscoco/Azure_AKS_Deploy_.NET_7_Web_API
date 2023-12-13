@@ -77,7 +77,11 @@ docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2255b4e1-47ba-4666-91d9-40c32ffb2348)
 
+## 4. Create Azure Kubernetes AKS Cluster
 
+```
+az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate--ssh-keys --attach-acr myregistryluiscoco1974
+```
 
 
 
