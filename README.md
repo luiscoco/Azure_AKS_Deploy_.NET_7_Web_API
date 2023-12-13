@@ -29,10 +29,10 @@ az group create --name myRG --location westeurope
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2cf39089-c990-424a-95da-2dd99183267d)
 
 
-Create an ACR instance:
+Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name):
 
 ```
-az acr create --resource-group myRG --name myRegistryluiscoco1974 --sku Basic
+az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
 ```
 
 Set the admin user in the ACR and copy the username and password:
