@@ -54,19 +54,25 @@ cd path/to/your/project
 Log in to ACR:
 
 ```
-az acr login --name myRegistryluiscoco1974
+az acr login --name myregistryluiscoco1974
 ```
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/9cf9cb0d-2d98-40d4-be6c-17aed5b4e0db)
+
+**NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974" 
 
 Build your Docker image:
 
 ```
-docker build -t myRegistryluiscoco1974.azurecr.io/mywebapi:v1 .
+docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 ```
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/fc101461-c21f-4e26-8ff4-94f71b9a36f4)
 
 Push the Image to ACR:
 
 ```
-docker push myRegistryluiscoco1974.azurecr.io/mywebapi:v1
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
 
