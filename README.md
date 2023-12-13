@@ -35,9 +35,13 @@ Create an ACR instance (**Note**: only use **lowercase letters** for the ACR nam
 az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
 ```
 
-Set the admin user in the ACR and copy the username and password:
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/baa3e3d5-b644-4df4-b8ac-f09cef95ecd3)
 
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/68deca9e-5d3b-49fb-8cb8-b864186792ba)
 
+Set the **Admin user** in the ACR and copy the username and password:
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/d11bcdb0-79dd-4dee-a6a1-448b9fa8784b)
 
 ## 3. Build and Push Docker image
 
