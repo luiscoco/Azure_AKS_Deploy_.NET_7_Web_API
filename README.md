@@ -16,11 +16,18 @@ Login in to Azure:
 az login
 ```
 
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/7bdf12b0-dfcb-4d3b-ad53-b53510adb19d)
+
 Create a ResourceGroup:
 
 ```
 az group create --name myRG --location westeurope
 ```
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/875aa42a-5dcd-44bf-98d7-f6c531a63c17)
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2cf39089-c990-424a-95da-2dd99183267d)
+
 
 Create an ACR instance:
 
