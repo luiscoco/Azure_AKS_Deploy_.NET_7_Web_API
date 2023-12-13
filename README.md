@@ -10,7 +10,7 @@ Install Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 
 ## 2. Create Azure Container Registry (ACR)
 
-Login in to Azure:
+### 2.1. Login in to Azure:
 
 ```
 az login
@@ -18,7 +18,7 @@ az login
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/7bdf12b0-dfcb-4d3b-ad53-b53510adb19d)
 
-Create a ResourceGroup:
+### 2.2. Create a ResourceGroup:
 
 ```
 az group create --name myRG --location westeurope
@@ -29,7 +29,7 @@ az group create --name myRG --location westeurope
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2cf39089-c990-424a-95da-2dd99183267d)
 
 
-Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name):
+### 2.3. Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name):
 
 ```
 az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
@@ -39,19 +39,19 @@ az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/68deca9e-5d3b-49fb-8cb8-b864186792ba)
 
-Set the **Admin user** in the ACR and copy the username and password:
+### 2.4. Set the **Admin user** in the ACR and copy the username and password:
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/d11bcdb0-79dd-4dee-a6a1-448b9fa8784b)
 
 ## 3. Build and Push Docker image
 
-Navigate to your project
+### 3.1. Navigate to your project
 
 ```
 cd path/to/your/project
 ```
 
-Log in to ACR:
+### 3.2. Log in to ACR:
 
 ```
 az acr login --name myregistryluiscoco1974
@@ -61,7 +61,7 @@ az acr login --name myregistryluiscoco1974
 
 **NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974" 
 
-Build your Docker image:
+### 3.3. Build your Docker image:
 
 ```
 docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
@@ -69,7 +69,7 @@ docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/fc101461-c21f-4e26-8ff4-94f71b9a36f4)
 
-Push the Image to ACR:
+### 3.4. Push the Image to ACR:
 
 ```
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
