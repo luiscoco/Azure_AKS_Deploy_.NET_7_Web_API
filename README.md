@@ -89,5 +89,20 @@ az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count
 az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 ```
 
+## 6. Access to the Web API endpoint
 
+We navigate to the ResourceGroup "myRG":
 
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/e7d3f41d-c90f-4d3c-b4b1-3ea382a04a2a)
+
+Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/0592d64a-9fe1-4c8b-97c5-acc97c73113e)
+
+We copy the Load Balancer External IP:
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/6d36ff4d-cd7c-478d-baa9-eb172d075540)
+
+In the internet web browser we input the Load Balancer External IP followed by the controller name "weatherforecast":
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/1090830c-f2dc-4118-b7a4-92bb40fc7cb8)
