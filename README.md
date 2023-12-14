@@ -93,6 +93,36 @@ az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count
 az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 ```
 
+Deploy your app to AKS using a Kubernetes manifest file. This file defines how your app should run and what image to use. Assuming you have a manifest file (e.g., deployment.yaml), use the following command:
+
+```
+kubectl apply -f deployment.yaml
+```
+
+and 
+
+```
+kubectl apply -f service.yml
+```
+
+Verify the Deployment. To ensure your deployment is running, use:
+
+```
+kubectl get deployments
+```
+
+For detailed information on the deployed pods, use:
+
+```
+kubectl get pods
+```
+
+To see the LoadBalancer IP address run this command:
+
+```
+kubectl get services
+```
+
 ## 6. Access to the Web API endpoint
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
