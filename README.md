@@ -93,10 +93,14 @@ az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count
 az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 ```
 
-Deploy your app to AKS using a Kubernetes manifest file. This file defines how your app should run and what image to use. Assuming you have a manifest file (e.g., deployment.yaml), use the following command:
+## 6. Deploy your app to AKS using a Kubernetes manifest files
+
+The **deployment.yaml** and **serivce.yml** files define how your app should run and what image to use. 
+
+Assuming you have a manifest file (e.g., deployment.yaml), use the following command:
 
 ```
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment.yml
 ```
 
 and 
@@ -123,7 +127,7 @@ To see the LoadBalancer IP address run this command:
 kubectl get services
 ```
 
-## 6. Access to the Web API endpoint
+## 7. Access to the Web API endpoint
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
 
