@@ -1,5 +1,9 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
+IMPORTANT NOTE!: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
+
+https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
+
 ## 1. Prerequisites
 
 Install **kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
