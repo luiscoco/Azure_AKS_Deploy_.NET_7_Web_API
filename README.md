@@ -2,7 +2,7 @@
 
 ## 1. Prerequisites
 
-Install **kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+Install **Kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 
 Download and install **Docker Desktop**: https://docs.docker.com/desktop/install/windows-install/
 
