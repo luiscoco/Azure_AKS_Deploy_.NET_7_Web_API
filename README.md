@@ -52,7 +52,19 @@ az ad sp create-for-rbac ^
 docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
 ```
 
-6. Assign a role "Contributor" to an Azure Active Directory application
+6. Build your Docker image:
+
+```
+docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
+```
+
+7. Push the Image to ACR:
+
+```
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
+
+8. Assign a role "Contributor" to an Azure Active Directory application
 
 ```
 az role assignment create --assignee ApplicationID ^
@@ -60,31 +72,78 @@ az role assignment create --assignee ApplicationID ^
 --role Contributor
 ```
 
-7. Push the Docker image to Azure ACR
+9. Push the Docker image to Azure ACR
 
 ```
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
-8. Run the Docker container in local
+10. Run the Docker container in local
 
 ```
 docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
-9. Create the Kubernetes manifest files (deployment.yml and service.yml)
+11. Create the Kubernetes manifest files (deployment.yml and service.yml)
 
+**deployment.yml** 
 
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapi-deployment
+spec:
+  replicas: 1  # The number of Pods to run
+  selector:
+    matchLabels:
+      app: demoapi
+  template:
+    metadata:
+      labels:
+        app: demoapi
+    spec:
+      containers:
+        - name: demoapi
+          image: myregistryluiscoco1974.azurecr.io/mywebapi:v1  # Replace with your Docker image, e.g., "username/demoapi:latest"
+          ports:
+            - containerPort: 8080
+```
 
-10. Create Azure Kubernetes cluster (AKS)
+**service.yml**
 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapi-service
+spec:
+  type: LoadBalancer  # Exposes the service externally using a load balancer
+  selector:
+    app: demoapi
+  ports:
+    - protocol: TCP
+      port: 80  # The port the load balancer listens on
+      targetPort: 8080  # The port the container accepts traffic on
+```
 
+12. Create Azure Kubernetes cluster (AKS)
 
+```
+az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys --attach-acr myregistryluiscoco1974 --location westeurope
+```
 
-13. Deploy the SpringBoot WebAPI to AKS 
+13. Deploy the SpringBoot WebAPI to AKS:
 
+```
+kubectl apply -f deployment.yml
+```
 
+and 
 
+```
+kubectl apply -f service.yml
+```
 
 ## 1. Prerequisites
 
