@@ -1,12 +1,30 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
-**SubscriptionID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+## 1. Log in to Azure Portal
 
+
+
+## 2. Create a Service Principal
+
+These are the input values for creating the Service Principal in Azure Portal:
+
+**SubscriptionID**: XXXXXXXXXXXXXXXX
+
+**ResourceGroup**: ResourceGroupName
+
+
+
+```
 az ad sp create-for-rbac --name service-principal-name --scopes /subscriptions/XXXXXXXXXXXXXXXXXXXXXXXXX/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpull --query "password" --output tsv
+```
+
+After creating the a service
 
 **SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-C:\>az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
+## 3. Create a 
+
+az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
 
 **ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
