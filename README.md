@@ -6,37 +6,39 @@
 
 ## 2. Create a Service Principal
 
-These are the input values for creating the Service Principal in Azure Portal:
-
-**SubscriptionID**: XXXXXXXXXXXXXXXX
-
-**ResourceGroup**: ResourceGroupName
-
-**Service-Principal-Name**: service-principal-name
-
 This command is used in Azure to create a Service Principal with the Azure Container Registry Pull (acrpull) role. Let's break down each part of the command to understand what it does:
 
 Command Overview:
 
-az ad sp create-for-rbac: This is an Azure CLI command to create a new Azure Active Directory (Azure AD) Service Principal. 
+**az ad sp create-for-rbac**: This is an Azure CLI command to create a new Azure Active Directory (Azure AD) Service Principal. 
 
 Service Principals are used in Azure to provide a security identity for applications or automated tools to access specific Azure resources.
 
 Parameters:
 
---name service-principal-name: This specifies the name of the new Service Principal. 
+**--name service-principal-name**: This specifies the name of the new Service Principal. 
 
 You should replace service-principal-name with a name you choose for your Service Principal.
 
---scopes /subscriptions/XXXXXXXXXXXXXXXXXXXXXXXXX/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974: This defines the scope of access for the Service Principal. The scope is set to a specific Azure Container Registry within a subscription and resource group. You should replace XXXXXXXXXXXXXXXXXXXXXXXXX with your Azure subscription ID, ResourceGroupName with the name of your resource group, and myregistryluiscoco1974 with the name of your container registry.
+**--scopes** /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974: This defines the scope of access for the Service Principal. 
 
---role acrpull: This assigns the role of acrpull to the Service Principal. The acrpull role allows the Service Principal to pull images from the Azure Container Registry. It's a read-only permission specific to Azure Container Registry.
+The scope is set to a specific Azure Container Registry within a subscription and resource group. 
 
---query "password": This query parameter is used to extract only the password of the created Service Principal from the command's output. It's useful if you want to capture or use this password immediately after creation.
+You should replace SubscriptionID with your Azure subscription ID, ResourceGroupName with the name of your resource group, and myregistryluiscoco1974 with the name of your container registry.
 
---output tsv: This outputs the result in Tab-Separated Values (TSV) format. It's a simple, unformatted output that's easy to use in scripts.
+**--role acrpull**: This assigns the role of acrpull to the Service Principal. 
 
-Use Case:
+The acrpull role allows the Service Principal to pull images from the Azure Container Registry. 
+
+It's a read-only permission specific to Azure Container Registry.
+
+**--query "password"**: This query parameter is used to extract only the password of the created Service Principal from the command's output. 
+
+It's useful if you want to capture or use this password immediately after creation.
+
+**--output tsv**: This outputs the result in Tab-Separated Values (TSV) format. It's a simple, unformatted output that's easy to use in scripts.
+
+**Use Case**:
 
 The primary use case for this command is when you need to automate the deployment of applications that use images stored in an Azure Container Registry. 
 
@@ -55,9 +57,15 @@ az ad sp create-for-rbac ^
     --output tsv
 ```
 
-After creating the a service
+After creating the a service principal we get the secret value as output
 
 **SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+We also can verify the service principal we created in Azure Portal. Navigate to 
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/45c98d51-1e80-496f-8028-a048bd5ae97d)
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/85af68a0-93d9-491c-8863-ee14cce1be95)
 
 ## 3. Create a 
 
