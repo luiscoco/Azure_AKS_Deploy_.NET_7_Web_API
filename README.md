@@ -130,7 +130,14 @@ spec:
 12. Create Azure Kubernetes cluster (AKS)
 
 ```
-az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys --attach-acr myregistryluiscoco1974 --location westeurope
+az aks create ^
+--resource-group myRG ^
+--name myAKSClusterluiscoco1974 ^
+--node-count 1 ^
+--enable-addons monitoring ^
+--generate-ssh-keys ^
+--attach-acr myregistryluiscoco1974 ^
+--location westeurope
 ```
 
 13. Deploy the SpringBoot WebAPI to AKS:
