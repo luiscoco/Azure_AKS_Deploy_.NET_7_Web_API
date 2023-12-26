@@ -12,7 +12,7 @@ These are the input values for creating the Service Principal in Azure Portal:
 
 **ResourceGroup**: ResourceGroupName
 
-
+**Service-Principal-Name**: service-principal-name
 
 ```
 az ad sp create-for-rbac --name service-principal-name --scopes /subscriptions/XXXXXXXXXXXXXXXXXXXXXXXXX/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpull --query "password" --output tsv
