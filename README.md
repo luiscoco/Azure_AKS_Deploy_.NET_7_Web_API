@@ -1,4 +1,4 @@
-# How to deploy to Azure Kubernetes AKS a Web API .NET 8
+# How to deploy SpringBoot WebAPI to Azure Kubernetes (AKS)
 
 ## 1. Prerequisites
 
