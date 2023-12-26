@@ -2,9 +2,7 @@
 
 ## Summary
 
-1. Create a SpringBoot WebAPI in VSCode
-
-See this repo: https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode
+1. Create a SpringBoot WebAPI in VSCode: https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode
 
 2. Create the Dockerfile
 
