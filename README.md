@@ -72,19 +72,13 @@ az role assignment create --assignee ApplicationID ^
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
-9. Push the Docker image to Azure ACR
-
-```
-docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-10. Run the Docker container in local
+9. Run the Docker container in local
 
 ```
 docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
-11. Create the Kubernetes manifest files (deployment.yml and service.yml)
+10. Create the Kubernetes manifest files (deployment.yml and service.yml)
 
 **deployment.yml** 
 
@@ -127,7 +121,7 @@ spec:
       targetPort: 8080  # The port the container accepts traffic on
 ```
 
-12. Create Azure Kubernetes cluster (AKS)
+11. Create Azure Kubernetes cluster (AKS)
 
 ```
 az aks create ^
@@ -140,7 +134,7 @@ az aks create ^
 --location westeurope
 ```
 
-13. Deploy the SpringBoot WebAPI to AKS:
+12. Deploy the SpringBoot WebAPI to AKS:
 
 ```
 kubectl apply -f deployment.yml
