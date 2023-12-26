@@ -298,14 +298,8 @@ kubectl get services
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
 
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/e7d3f41d-c90f-4d3c-b4b1-3ea382a04a2a)
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/0592d64a-9fe1-4c8b-97c5-acc97c73113e)
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/8aed65f5-f2cb-4924-ae78-6a5251d34110)
 
 We copy the **Load Balancer External IP**:
 
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/6d36ff4d-cd7c-478d-baa9-eb172d075540)
-
-In the internet web browser we input the Load Balancer External IP followed by the controller name "weatherforecast":
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/1090830c-f2dc-4118-b7a4-92bb40fc7cb8)
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/eeb2c01e-b070-416c-b90c-8ba8ab1a5703)
