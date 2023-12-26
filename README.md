@@ -2,7 +2,22 @@
 
 ## 1. Create a Service Principal
 
-This command is used in Azure to create a Service Principal with the Azure Container Registry Pull (acrpull) role. Let's break down each part of the command to understand what it does:
+This Service Principal's credentials can then be used in various automated workflows to securely pull images from the registry.
+
+```
+az ad sp create-for-rbac ^
+    --name service-principal-name ^
+    --scopes /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
+    --role acrpull ^
+    --query "password" ^
+    --output tsv
+```
+
+After creating the a service principal we get the secret value as output
+
+**SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+This command is used in Azure to create a Service Principal with the Azure Container Registry Pull (**acrpull**) role. Let's break down each part of the command to understand what it does:
 
 Command Overview:
 
@@ -42,21 +57,6 @@ The Service Principal created by this command can be used in your CI/CD pipeline
 
 In summary, this Azure CLI command creates a new Service Principal with limited permissions (only to pull images) scoped to a specific Azure Container Registry. 
 
-This Service Principal's credentials can then be used in various automated workflows to securely pull images from the registry.
-
-```
-az ad sp create-for-rbac ^
-    --name service-principal-name ^
-    --scopes /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
-    --role acrpull ^
-    --query "password" ^
-    --output tsv
-```
-
-After creating the a service principal we get the secret value as output
-
-**SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
 We also can verify the service principal we created in Azure Portal. Navigate to 
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/45c98d51-1e80-496f-8028-a048bd5ae97d)
@@ -64,6 +64,8 @@ We also can verify the service principal we created in Azure Portal. Navigate to
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/85af68a0-93d9-491c-8863-ee14cce1be95)
 
 ## 2. Get the ApplicationID
+
+Use this command for gettin the Application ID, we also can get this value from Azure Portal in **Microsoft Entra ID**
 
 ```
 az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
@@ -73,7 +75,7 @@ We have to set the **ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## 3. Login in Azure Container Registry ACR
 
-Run this command:
+Run this command for log in to Azure ACR
 
 ```
 docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
