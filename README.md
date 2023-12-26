@@ -89,15 +89,21 @@ The **ApplicationID** and the **SecretValue**
 
 ## 4. Assign a role "Contributor" to an Azure Active Directory application
 
-The command is used to assign a role (**Contributor**) to an Azure Active Directory (AAD) application or service principal within Azure
-
-
-
-az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpush
+The command is used to assign a role (**Contributor** and **acrpush**) to an Azure Active Directory (AAD) application or service principal within Azure
 
 ```
-az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role Contributor
+az role assignment create --assignee ApplicationID ^
+--scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
+--role acrpush
 ```
+
+```
+az role assignment create --assignee ApplicationID ^
+--scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
+--role Contributor
+```
+
+## 5. Push the Docker image to Azure Container Registry ACR
 
 Push the Docker image to Azure Container Registry ACR
 
@@ -105,13 +111,13 @@ Push the Docker image to Azure Container Registry ACR
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
+## 6. Run the Docker image
+
 Run the Docker Container 
 
 ```
 docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
-
-
 
 **IMPORTANT NOTE**: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
 
