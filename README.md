@@ -6,15 +6,85 @@
 
 2. Create the Dockerfile
 
+```
+# Start with a base image containing Java runtime
+FROM openjdk:11-jdk-slim as build
+
+# Add Maintainer Info
+LABEL maintainer="your_email@example.com"
+
+# Add a volume pointing to /tmp
+VOLUME /tmp
+
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# The application's jar file
+ARG JAR_FILE=target/demoapi-0.0.1-SNAPSHOT.jar
+
+# Add the application's jar to the container
+ADD ${JAR_FILE} demoapi.jar
+
+# Run the jar file
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/demoapi.jar"]
+```
+
 3. Create Azure Container Registry ACR
 
-4. Push the Docker image to Azure ACR
+```
+az acr create --name myAzureContainerRegistry --resource-group myResourceGroup --sku Basic
+```
 
-5. Create the Kubernetes manifest files (deployment.yml and service.yml)
+4. Create a Service Principal
 
-6. Create Azure Kubernetes cluster (AKS)
+```
+az ad sp create-for-rbac ^
+    --name service-principal-name ^
+    --scopes /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
+    --role acrpull ^
+    --query "password" ^
+    --output tsv
+```
 
-7. Deploy the SpringBoot WebAPI to AKS 
+5. Docker login
+
+```
+docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
+```
+
+6. Assign a role "Contributor" to an Azure Active Directory application
+
+```
+az role assignment create --assignee ApplicationID ^
+--scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
+--role Contributor
+```
+
+7. Push the Docker image to Azure ACR
+
+```
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
+
+8. Run the Docker container in local
+
+```
+docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
+
+9. Create the Kubernetes manifest files (deployment.yml and service.yml)
+
+
+
+10. Create Azure Kubernetes cluster (AKS)
+
+
+
+
+13. Deploy the SpringBoot WebAPI to AKS 
+
+
+
 
 ## 1. Prerequisites
 
