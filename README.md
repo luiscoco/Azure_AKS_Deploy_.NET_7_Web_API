@@ -87,21 +87,33 @@ The Azure Continer Registry ACR name: myregistryluiscoco1974.azurecr.io
 
 The **ApplicationID** and the **SecretValue**
 
-## 4. 
+## 4. Assign a role "Contributor" to an Azure Active Directory application
+
+The command is used to assign a role (**Contributor**) to an Azure Active Directory (AAD) application or service principal within Azure
 
 
-
-## 5. 
 
 az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpush
 
+```
 az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role Contributor
+```
 
+Push the Docker image to Azure Container Registry ACR
+
+```
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
 
+Run the Docker Container 
+
+```
 docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
 
-IMPORTANT NOTE!: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
+
+
+**IMPORTANT NOTE**: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
 
 https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
 
