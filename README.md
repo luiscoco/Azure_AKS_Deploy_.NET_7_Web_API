@@ -1,6 +1,14 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
-## 1. Create a Service Principal
+## 1. Prerequisites
+
+Install **kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+
+Download and install **Docker Desktop**: https://docs.docker.com/desktop/install/windows-install/
+
+Install **Azure CLI**: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
+
+## 2. Create a Service Principal
 
 This Service Principal's credentials can then be used in various automated workflows to securely pull images from the registry.
 
@@ -63,7 +71,7 @@ We also can verify the service principal we created in Azure Portal. Navigate to
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/85af68a0-93d9-491c-8863-ee14cce1be95)
 
-## 2. Get the ApplicationID
+## 3. Get the ApplicationID
 
 Use this command for gettin the Application ID, we also can get this value from Azure Portal in **Microsoft Entra ID**
 
@@ -73,7 +81,7 @@ az ad sp list --display-name service-principal-name --query "[].appId" --output 
 
 We have to set the **ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-## 3. Login in Azure Container Registry ACR
+## 4. Login in Azure Container Registry ACR
 
 Run this command for log in to Azure ACR
 
@@ -87,7 +95,7 @@ The Azure Continer Registry ACR name: myregistryluiscoco1974.azurecr.io
 
 The **ApplicationID** and the **SecretValue**
 
-## 4. Assign a role "Contributor" to an Azure Active Directory application
+## 5. Assign a role "Contributor" to an Azure Active Directory application
 
 The command is used to assign a role (**Contributor** and **acrpush**) to an Azure Active Directory (AAD) application or service principal within Azure
 
@@ -103,7 +111,7 @@ az role assignment create --assignee ApplicationID ^
 --role Contributor
 ```
 
-## 5. Push the Docker image to Azure Container Registry ACR
+## 6. Push the Docker image to Azure Container Registry ACR
 
 Push the Docker image to Azure Container Registry ACR
 
@@ -111,7 +119,7 @@ Push the Docker image to Azure Container Registry ACR
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
-## 6. Run the Docker image
+## 7. Run the Docker image
 
 Run the Docker Container 
 
@@ -123,17 +131,10 @@ docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
 https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
 
-## 1. Prerequisites
 
-Install **kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+## 8. Create Azure Container Registry (ACR)
 
-Download and Install Docker Desktop: https://docs.docker.com/desktop/install/windows-install/
-
-Install Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
-
-## 2. Create Azure Container Registry (ACR)
-
-### 2.1. Login in to Azure:
+### 8.1. Login in to Azure
 
 ```
 az login
@@ -141,7 +142,7 @@ az login
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/7bdf12b0-dfcb-4d3b-ad53-b53510adb19d)
 
-### 2.2. Create a ResourceGroup:
+### 8.2. Create a ResourceGroup
 
 ```
 az group create --name myRG --location westeurope
@@ -152,7 +153,7 @@ az group create --name myRG --location westeurope
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2cf39089-c990-424a-95da-2dd99183267d)
 
 
-### 2.3. Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name):
+### 8.3. Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name)
 
 ```
 az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
@@ -162,19 +163,19 @@ az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/68deca9e-5d3b-49fb-8cb8-b864186792ba)
 
-### 2.4. Set the **Admin user** in the ACR and copy the username and password:
+### 8.4. Set the **Admin user** in the ACR and copy the username and password
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/d11bcdb0-79dd-4dee-a6a1-448b9fa8784b)
 
-## 3. Build and Push Docker image
+## 9. Build and Push Docker image
 
-### 3.1. Navigate to your project
+### 9.1. Navigate to your project
 
 ```
 cd path/to/your/project
 ```
 
-### 3.2. Log in to ACR:
+### 9.2. Log in to ACR:
 
 ```
 az acr login --name myregistryluiscoco1974
@@ -184,7 +185,7 @@ az acr login --name myregistryluiscoco1974
 
 **NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974" 
 
-### 3.3. Build your Docker image:
+### 9.3. Build your Docker image:
 
 ```
 docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
@@ -192,7 +193,7 @@ docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/fc101461-c21f-4e26-8ff4-94f71b9a36f4)
 
-### 3.4. Push the Image to ACR:
+### 9.4. Push the Image to ACR:
 
 ```
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
@@ -200,7 +201,7 @@ docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2255b4e1-47ba-4666-91d9-40c32ffb2348)
 
-## 4. Create Azure Kubernetes AKS Cluster
+## 10. Create Azure Kubernetes AKS Cluster
 
 ```
 az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys --attach-acr myregistryluiscoco1974 --location westeurope
@@ -217,13 +218,13 @@ az aks create ^
     --location westeurope
 ```
 
-## 5. Connect to Azure Kubernetes AKS Cluster
+## 11. Connect to Azure Kubernetes AKS Cluster
 
 ```
 az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 ```
 
-## 6. Deploy your app to AKS using a Kubernetes manifest files
+## 12. Deploy your app to AKS using a Kubernetes manifest files
 
 The **deployment.yaml** and **serivce.yml** files define how your app should run and what image to use. 
 
@@ -257,7 +258,7 @@ To see the LoadBalancer IP address run this command:
 kubectl get services
 ```
 
-## 7. Access to the Web API endpoint
+## 13. Access to the Web API endpoint
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
 
