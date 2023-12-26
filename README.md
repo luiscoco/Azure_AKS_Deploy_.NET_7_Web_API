@@ -1,23 +1,21 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
-az ad sp create-for-rbac --name luis-service-principal-name --scopes /subscriptions/1d640b19-d6ae-466b-a0bd-d80869b565b8/resourceGroups/myRG/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpull --query "password" --output tsv
+**SubscriptionID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+az ad sp create-for-rbac --name service-principal-name --scopes /subscriptions/XXXXXXXXXXXXXXXXXXXXXXXXX/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpull --query "password" --output tsv
 
+**SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-C:\>az ad sp create-for-rbac --name luis-service-principal-name --scopes /subscriptions/1d640b19-d6ae-466b-a0bd-d80869b565b8/resourceGroups/myRG/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpull --query "password" --output tsv
-Creating 'acrpull' role assignment under scope '/subscriptions/1d640b19-d6ae-466b-a0bd-d80869b565b8/resourceGroups/myRG/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974'
-The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
+C:\>az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
 
-Secret Value: bKB8Q~Zs2bho7SUQy1G4Qhhq7cOf7Sdgti-nwckf
+**ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-C:\>az ad sp list --display-name luis-service-principal-name --query "[].appId" --output tsv
+docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
 
-Application (client) ID: 70566a6a-4ba8-4b63-9f6e-3979467545c6
+az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpush
+az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role Contributor
 
-docker login myregistryluiscoco1974.azurecr.io -u <service-principal-app-id> -p <service-principal-password>
-
-
-
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
 IMPORTANT NOTE!: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
 
