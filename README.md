@@ -296,7 +296,7 @@ kubectl get services
 
 ## 13. Access to the Web API endpoint
 
-We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
+We navigate to the **ResourceGroup** "myRG", and Then we click in the **Kubernetes** service "myAKSClusterluiscoco1974":
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/8aed65f5-f2cb-4924-ae78-6a5251d34110)
 
