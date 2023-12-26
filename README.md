@@ -204,10 +204,6 @@ docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ## 10. Create Azure Kubernetes AKS Cluster
 
 ```
-az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys --attach-acr myregistryluiscoco1974 --location westeurope
-```
-
-```
 az aks create ^
     --resource-group myRG ^
     --name myAKSClusterluiscoco1974 ^
@@ -226,9 +222,49 @@ az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 
 ## 12. Deploy your app to AKS using a Kubernetes manifest files
 
-The **deployment.yaml** and **serivce.yml** files define how your app should run and what image to use. 
+The **deployment.yaml** and **serivce.yml** files define how your app should run and what image to use
 
-Assuming you have a manifest file (e.g., deployment.yaml), use the following command:
+**deployment.yaml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapi-deployment
+spec:
+  replicas: 1  # The number of Pods to run
+  selector:
+    matchLabels:
+      app: demoapi
+  template:
+    metadata:
+      labels:
+        app: demoapi
+    spec:
+      containers:
+        - name: demoapi
+          image: myregistryluiscoco1974.azurecr.io/mywebapi:v1  # Replace with your Docker image, e.g., "username/demoapi:latest"
+          ports:
+            - containerPort: 8080
+```
+
+**serivce.yml**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapi-service
+spec:
+  type: LoadBalancer  # Exposes the service externally using a load balancer
+  selector:
+    app: demoapi
+  ports:
+    - protocol: TCP
+      port: 80  # The port the load balancer listens on
+      targetPort: 8080  # The port the container accepts traffic on
+```
+
+Assuming you have a manifest file (e.g., deployment.yaml), use the following command to deploy the Kubernetes cluster:
 
 ```
 kubectl apply -f deployment.yml
@@ -266,7 +302,7 @@ We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes ser
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/0592d64a-9fe1-4c8b-97c5-acc97c73113e)
 
-We copy the Load Balancer External IP:
+We copy the **Load Balancer External IP**:
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/6d36ff4d-cd7c-478d-baa9-eb172d075540)
 
