@@ -17,7 +17,7 @@ az role assignment create --assignee ApplicationID --scope /subscriptions/Subscr
 
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
-docker run -p 8080:80 myregistryluiscoco1974.azurecr.io/mywebapi:v1
+docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 
 IMPORTANT NOTE!: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
 
