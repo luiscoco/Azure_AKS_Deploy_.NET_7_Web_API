@@ -58,18 +58,18 @@ docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
 docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 ```
 
-7. Push the Image to ACR:
-
-```
-docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-8. Assign a role "Contributor" to an Azure Active Directory application
+7. Assign a role "Contributor" to an Azure Active Directory application
 
 ```
 az role assignment create --assignee ApplicationID ^
 --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
 --role Contributor
+```
+
+8. Push the Image to ACR:
+
+```
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
 9. Push the Docker image to Azure ACR
