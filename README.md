@@ -1,5 +1,21 @@
 # How to deploy SpringBoot WebAPI to Azure Kubernetes (AKS)
 
+## Summary
+
+1. Create a SpringBoot WebAPI in VSCode
+
+2. Create the Dockerfile
+
+3. Create Azure Container Registry ACR
+
+4. Push the Docker image to Azure ACR
+
+5. Create the Kubernetes manifest files (deployment.yml and service.yml)
+
+6. Create Azure Kubernetes cluster (AKS)
+
+7. Deploy the SpringBoot WebAPI to AKS 
+
 ## 1. Prerequisites
 
 Install **Kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
