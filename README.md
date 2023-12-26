@@ -1,12 +1,139 @@
-# How to deploy SpringBoot WebAPI to Azure Kubernetes (AKS)
+# How to create a SpringBoot Web API in VSCode and create/run a Docker image in your localhost
 
-## Summary
+You can find this example source code in this github repo: https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode
 
-1. Create a SpringBoot WebAPI in VSCode:
+## 1. Set up the environment
 
-   https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode
+First, ensure you have the following setup in your VS Code environment:
 
-3. Create the Dockerfile
+- Java Development Kit (**JDK**)
+
+- **VS Code** with the Java extension pack installed
+
+- **Maven** for dependency management
+
+## 2. Project folders structure
+
+![image](https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode/assets/32194879/15efd028-41f0-46f3-bf6f-6856546f393e)
+
+![image](https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode/assets/32194879/d7cf549c-03c9-44ac-b340-9d5b12404d88)
+
+## 3. Here's a simple Java Spring Boot application source code
+
+**pom.xml**
+
+```xml 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>demoapi</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>demoapi</name>
+    <description>Demo project for Spring Boot</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.0</version>
+        <relativePath/>
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
+
+**DemoapiApplication.java**
+
+```java
+package com.example.demoapi;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoapiApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoapiApplication.class, args);
+    }
+}
+```
+
+**HelloController.java**
+
+http://localhost:8080/hello
+
+```java
+package com.example.demoapi.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello, World!";
+    }
+}
+```
+
+## 4. Install the project dependencies 
+
+Include the following libraries in the pom.xml file:
+
+- spring-boot-starter-actuator
+- spring-boot-starter-web
+- spring-boot-starter-test
+
+```
+...
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-test</artifactId>
+   <scope>test</scope>
+</dependency>
+...
+```
+
+## 5. Dockerfile
 
 ```
 # Start with a base image containing Java runtime
@@ -31,394 +158,48 @@ ADD ${JAR_FILE} demoapi.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/demoapi.jar"]
 ```
 
-3. Create Azure Container Registry ACR
+## 6. To build and package the application
 
-```
-az acr create --name myAzureContainerRegistry --resource-group myResourceGroup --sku Basic
-```
-
-4. Create a Service Principal
-
-```
-az ad sp create-for-rbac ^
-    --name service-principal-name ^
-    --scopes /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
-    --role acrpull ^
-    --query "password" ^
-    --output tsv
-```
-
-5. Docker login
-
-```
-docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
-```
-
-6. Build your Docker image:
-
-```
-docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
-```
-
-7. Assign a role "Contributor" to an Azure Active Directory application
-
-```
-az role assignment create --assignee ApplicationID ^
---scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
---role Contributor
-```
-
-8. Push the Image to ACR:
-
-```
-docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-9. Run the Docker container in local
-
-```
-docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-10. Create the Kubernetes manifest files (deployment.yml and service.yml)
-
-**deployment.yml** 
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: demoapi-deployment
-spec:
-  replicas: 1  # The number of Pods to run
-  selector:
-    matchLabels:
-      app: demoapi
-  template:
-    metadata:
-      labels:
-        app: demoapi
-    spec:
-      containers:
-        - name: demoapi
-          image: myregistryluiscoco1974.azurecr.io/mywebapi:v1  # Replace with your Docker image, e.g., "username/demoapi:latest"
-          ports:
-            - containerPort: 8080
-```
-
-**service.yml**
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: demoapi-service
-spec:
-  type: LoadBalancer  # Exposes the service externally using a load balancer
-  selector:
-    app: demoapi
-  ports:
-    - protocol: TCP
-      port: 80  # The port the load balancer listens on
-      targetPort: 8080  # The port the container accepts traffic on
-```
-
-11. Create Azure Kubernetes cluster (AKS)
-
-```
-az aks create ^
---resource-group myRG ^
---name myAKSClusterluiscoco1974 ^
---node-count 1 ^
---enable-addons monitoring ^
---generate-ssh-keys ^
---attach-acr myregistryluiscoco1974 ^
---location westeurope
-```
-
-12. Deploy the SpringBoot WebAPI to AKS:
-
-```
-kubectl apply -f deployment.yml
-```
-
-and 
-
-```
-kubectl apply -f service.yml
-```
-
-## 1. Prerequisites
-
-Install **Kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
-
-Download and install **Docker Desktop**: https://docs.docker.com/desktop/install/windows-install/
-
-Install **Azure CLI**: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
-
-
-## 2. Create a SpringBoot WebAPI in VSCode: https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode
-
-
-## 3. Create a Service Principal
-
-This Service Principal's credentials can then be used in various automated workflows to securely pull images from the registry.
-
-```
-az ad sp create-for-rbac ^
-    --name service-principal-name ^
-    --scopes /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
-    --role acrpull ^
-    --query "password" ^
-    --output tsv
-```
-
-After creating the a service principal we get the secret value as output
-
-**SecretValue**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-This command is used in Azure to create a Service Principal with the Azure Container Registry Pull (**acrpull**) role. 
-
-The primary use case for this command is when you need to automate the deployment of applications that use images stored in an Azure Container Registry. 
-
-The Service Principal created by this command can be used in your CI/CD pipelines or from within Kubernetes (as an image pull secret) to authenticate and pull images from the registry.
-
-In summary, this Azure CLI command creates a new Service Principal with limited permissions (only to pull images) scoped to a specific Azure Container Registry. 
-
-We also can verify the service principal we created in Azure Portal. Navigate to 
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/45c98d51-1e80-496f-8028-a048bd5ae97d)
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/85af68a0-93d9-491c-8863-ee14cce1be95)
-
-## 4. Get the ApplicationID
-
-Use this command for gettin the Application ID, we also can get this value from Azure Portal in **Microsoft Entra ID**
-
-```
-az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
-```
-
-We have to set the **ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-## 5. Login in Azure Container Registry ACR
-
-Run this command for log in to Azure ACR
-
-```
-docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
-```
-
-As parameter we have to set:
+To build the application execture this command in the VSCode terminal window:
 
-The Azure Continer Registry ACR name: myregistryluiscoco1974.azurecr.io
-
-The **ApplicationID** and the **SecretValue**
-
-## 6. Assign a role "Contributor" to an Azure Active Directory application
-
-The command is used to assign a role (**Contributor** and **acrpush**) to an Azure Active Directory (AAD) application or service principal within Azure
-
-```
-az role assignment create --assignee ApplicationID ^
---scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
---role acrpush
-```
-
-```
-az role assignment create --assignee ApplicationID ^
---scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 ^
---role Contributor
-```
-
-## 7. Push the Docker image to Azure Container Registry ACR
-
-Push the Docker image to Azure Container Registry ACR
-
-```
-docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-## 8. Run the Docker image
-
-Run the Docker Container 
-
-```
-docker run -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-**IMPORTANT NOTE**: for creating the the Web API .NET 8 (including the **DockerFile**, the **deployment.yml**, and **service.yml**) see this repo:
-
-https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
-
-
-## 9. Create Azure Container Registry (ACR)
-
-### 9.1. Login in to Azure
-
-```
-az login
-```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/7bdf12b0-dfcb-4d3b-ad53-b53510adb19d)
-
-### 9.2. Create a ResourceGroup
-
-```
-az group create --name myRG --location westeurope
-```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/875aa42a-5dcd-44bf-98d7-f6c531a63c17)
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2cf39089-c990-424a-95da-2dd99183267d)
-
-### 9.3. Create an ACR instance (**Note**: only use **lowercase letters** for the ACR name)
-
-```
-az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
-```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/baa3e3d5-b644-4df4-b8ac-f09cef95ecd3)
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/68deca9e-5d3b-49fb-8cb8-b864186792ba)
-
-### 9.4. Set the **Admin user** in the ACR and copy the username and password
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/d11bcdb0-79dd-4dee-a6a1-448b9fa8784b)
-
-## 10. Build and Push Docker image
-
-### 10.1. Navigate to your project
-
-```
-cd path/to/your/project
-```
-
-### 10.2. Log in to ACR:
-
-```
-az acr login --name myregistryluiscoco1974
-```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/9cf9cb0d-2d98-40d4-be6c-17aed5b4e0db)
-
-**NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974" 
-
-### 10.3. Build your Docker image:
-
-```
-docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
-```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/fc101461-c21f-4e26-8ff4-94f71b9a36f4)
-
-### 10.4. Push the Image to ACR:
-
-```
-docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_7_Web_API/assets/32194879/2255b4e1-47ba-4666-91d9-40c32ffb2348)
-
-## 11. Create Azure Kubernetes AKS Cluster
-
+mvn clean install
 ```
-az aks create ^
-    --resource-group myRG ^
-    --name myAKSClusterluiscoco1974 ^
-    --node-count 1 ^
-    --enable-addons monitoring ^
-    --generate-ssh-keys ^
-    --attach-acr myregistryluiscoco1974 ^
-    --location westeurope
-```
 
-## 12. Connect to Azure Kubernetes AKS Cluster
+![image](https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode/assets/32194879/2e29db06-e971-47d7-babe-13b51125943e)
 
-```
-az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
-```
+To run the application run this command:
 
-## 13. Deploy your app to AKS using a Kubernetes manifest files
-
-The **deployment.yaml** and **serivce.yml** files define how your app should run and what image to use
-
-**deployment.yaml**
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: demoapi-deployment
-spec:
-  replicas: 1  # The number of Pods to run
-  selector:
-    matchLabels:
-      app: demoapi
-  template:
-    metadata:
-      labels:
-        app: demoapi
-    spec:
-      containers:
-        - name: demoapi
-          image: myregistryluiscoco1974.azurecr.io/mywebapi:v1  # Replace with your Docker image, e.g., "username/demoapi:latest"
-          ports:
-            - containerPort: 8080
 ```
-
-**serivce.yml**
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: demoapi-service
-spec:
-  type: LoadBalancer  # Exposes the service externally using a load balancer
-  selector:
-    app: demoapi
-  ports:
-    - protocol: TCP
-      port: 80  # The port the load balancer listens on
-      targetPort: 8080  # The port the container accepts traffic on
+java -jar target/demoapi-0.0.1-SNAPSHOT.jar
 ```
 
-Assuming you have a manifest file (e.g., deployment.yaml), use the following command to deploy the Kubernetes cluster:
-
-```
-kubectl apply -f deployment.yml
-```
+## 7. How build the Docker image and run it
 
-and 
+To build the Docker image execute this command:
 
 ```
-kubectl apply -f service.yml
+docker build -t demoapi .
 ```
 
-Verify the Deployment. To ensure your deployment is running, use:
+To run the Web API docker image run this command:
 
 ```
-kubectl get deployments
+docker run -p 8080:8080 demoapi
 ```
 
-For detailed information on the deployed pods, use:
+![image](https://github.com/luiscoco/SpringBoot_Sample2-created-WebAPI-with-VSCode/assets/32194879/f01af46d-595f-470b-b07d-68d17bc98e7c)
 
-```
-kubectl get pods
-```
+## 8. How to create this example with ChatGPT-4
 
-To see the LoadBalancer IP address run this command:
-
-```
-kubectl get services
-```
+- Please provide me a Java API code sample in VSCode
 
-## 14. Access to the Web API endpoint
+- Please give me the whole application in different files
 
-We navigate to the **ResourceGroup** "myRG", and Then we click in the **Kubernetes** service "myAKSClusterluiscoco1974":
+- Is it possible you compress the above files in a zip file to download them?
 
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/8aed65f5-f2cb-4924-ae78-6a5251d34110)
+- Please tell me the command to execute this project in VSCode
 
-We copy the **Load Balancer External IP**:
+- Can you provide me the Dockerfile to create a docker image for the above application API?
 
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/eeb2c01e-b070-416c-b90c-8ba8ab1a5703)
+- Please provide me the command to run the docker image and access to the endpoint in my internet web browser
