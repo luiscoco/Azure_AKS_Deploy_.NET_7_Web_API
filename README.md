@@ -1,10 +1,6 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
-## 1. Log in to Azure Portal
-
-
-
-## 2. Create a Service Principal
+## 1. Create a Service Principal
 
 This command is used in Azure to create a Service Principal with the Azure Container Registry Pull (acrpull) role. Let's break down each part of the command to understand what it does:
 
@@ -67,15 +63,36 @@ We also can verify the service principal we created in Azure Portal. Navigate to
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/85af68a0-93d9-491c-8863-ee14cce1be95)
 
-## 3. Create a 
+## 2. Get the ApplicationID
 
+```
 az ad sp list --display-name service-principal-name --query "[].appId" --output tsv
+```
 
-**ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+We have to set the **ApplicationID**: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+## 3. Login in Azure Container Registry ACR
+
+Run this command:
+
+```
 docker login myregistryluiscoco1974.azurecr.io -u ApplicationID -p SecretValue
+```
+
+As parameter we have to set:
+
+The Azure Continer Registry ACR name: myregistryluiscoco1974.azurecr.io
+
+The **ApplicationID** and the **SecretValue**
+
+## 4. 
+
+
+
+## 5. 
 
 az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role acrpush
+
 az role assignment create --assignee ApplicationID --scope /subscriptions/SubscriptionID/resourceGroups/ResourceGroupName/providers/Microsoft.ContainerRegistry/registries/myregistryluiscoco1974 --role Contributor
 
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
