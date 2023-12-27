@@ -28,4 +28,23 @@ az group create --name myRG --location westeurope
 az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
 ```
 
+### 2.4. Set the Admin user in the ACR and copy the username and password:
+
+
+
+
+## 3. Build and Push Docker image
+
+### 3.1. Navigate to your project
+
+```
+cd /to/your/project
+```
+
+### 3.2. Log in to ACR:
+
+```
+az acr login --name myregistryluiscoco1974
+```
+
 
