@@ -38,6 +38,12 @@ az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/7241ba40-7fd9-4ee7-80e2-fefbcd6867b1)
 
+```
+docker login myregistryluiscoco1974.azurecr.io
+```
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/15cbdba9-bc7b-48df-999b-0035a960394f)
+
 ## 3. Build and Push Docker image
 
 ### 3.1. Navigate to your project
