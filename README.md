@@ -224,7 +224,7 @@ kubectl get all
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
 
-
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/f742f67d-4aba-4d86-8457-fcbea1a1af27)
 
 We copy the Load Balancer External IP:
 
