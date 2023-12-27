@@ -216,6 +216,10 @@ Deploy the application using the following command:
 kubectl apply -f deployment.yml
 ```
 
+```
+kubectl get all
+```
+
 ## 6. Access to the Web API endpoint
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
