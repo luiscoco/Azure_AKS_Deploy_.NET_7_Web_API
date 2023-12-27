@@ -77,3 +77,14 @@ az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
 
 We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
 
+
+
+We copy the Load Balancer External IP:
+
+
+
+In the internet web browser we input the Load Balancer External IP followed by the controller name "weatherforecast":
+
+
+
+
