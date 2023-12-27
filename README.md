@@ -228,12 +228,6 @@ We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes ser
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/f742f67d-4aba-4d86-8457-fcbea1a1af27)
 
-We copy the Load Balancer External IP:
+We copy the Load Balancer External IP. In the internet web browser we input the Load Balancer External IP followed by the controller name "weatherforecast":
 
-
-
-In the internet web browser we input the Load Balancer External IP followed by the controller name "weatherforecast":
-
-
-
-
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/a715668a-8509-4a0a-98db-4a0c655f3838)
