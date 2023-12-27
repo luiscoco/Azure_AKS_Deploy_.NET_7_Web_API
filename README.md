@@ -151,6 +151,10 @@ Set the context to your AKS cluster: You need to get credentials for your AKS cl
 az aks get-credentials --resource-group <YourResourceGroup> --name <YourAKSClusterName>
 ```
 
+```
+az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
+```
+
 Replace <YourResourceGroup> and <YourAKSClusterName> with your AKS resource group name and AKS cluster name, respectively.
 
 Create a Kubernetes Secret for ACR authentication: This step is crucial for allowing your AKS cluster to pull images from your private Azure Container Registry.
