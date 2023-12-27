@@ -176,7 +176,7 @@ spec:
     spec:
       containers:
       - name: my-dotnet-app
-        image: myregistryluiscoco1974.azurecr.io/mydotnetapp:latest
+        image: myregistryluiscoco1974.azurecr.io/mywebapi:v1
         ports:
         - containerPort: 80
 ---
