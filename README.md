@@ -46,17 +46,6 @@ docker login myregistryluiscoco1974.azurecr.io
 
 ![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/15cbdba9-bc7b-48df-999b-0035a960394f)
 
-To run the Docker container in your local laptop use this commnad:
-
-```
-docker run -d -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
-```
-
-Navigate to the WebAPI URL: http://localhost:8080/weatherforecast
-
-![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/9938bc04-b646-4ca8-a1ee-35815a7bd1f9)
-
-
 ## 3. Build and Push Docker image
 
 ### 3.1. Navigate to your project
@@ -114,6 +103,18 @@ docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 ```
 docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
+
+### 3.5. How to run the Docker container in your local laptop
+
+To run your WebAPI docker image stored in Azure ACR type this command:
+
+```
+docker run -d -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
+
+Navigate to the WebAPI URL: http://localhost:8080/weatherforecast
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/9938bc04-b646-4ca8-a1ee-35815a7bd1f9)
 
 ## 4. Create Azure Kubernetes AKS Cluster
 
