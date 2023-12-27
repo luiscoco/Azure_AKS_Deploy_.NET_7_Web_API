@@ -2,13 +2,21 @@
 
 https://github.com/luiscoco/SpringBoot_Sample5-deploy-WebAPI-to-Azure_Kubernetes_AKS/commits/main
 
-## 1. Prerequisites
+## 0. Prerequisites
 
 Install **Kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 
 Download and Install **Docker Desktop**: https://docs.docker.com/desktop/install/windows-install/
 
 Install **Azure CLI**: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
+
+## 1. Create .NET 8 WebAPI with Visual Studio 2022 Community Edition
+
+Run Visual Studio 2022 Community Edition and create a new .NET 8 WebAPI. 
+
+For more infor see: https://github.com/luiscoco/Docker_Create_and_run_Image-_for_dotNET_8_Web_API
+
+**VERY IMPORTANT!** Do not forget to enable Docker support
 
 ## 2. Create Azure Container Registry (ACR)
 
