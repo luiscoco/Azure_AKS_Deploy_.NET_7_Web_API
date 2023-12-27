@@ -52,6 +52,11 @@ To run the Docker container in your local laptop use this commnad:
 docker run -d -p 8080:8080 myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ```
 
+Navigate to the WebAPI URL: http://localhost:8080/weatherforecast
+
+![image](https://github.com/luiscoco/Azure_AKS_Deploy_.NET_8_Web_API/assets/32194879/9938bc04-b646-4ca8-a1ee-35815a7bd1f9)
+
+
 ## 3. Build and Push Docker image
 
 ### 3.1. Navigate to your project
