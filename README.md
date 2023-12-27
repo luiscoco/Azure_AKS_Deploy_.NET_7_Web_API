@@ -99,12 +99,14 @@ docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 ## 4. Create Azure Kubernetes AKS Cluster
 
 ```
-az aks create --resource-group myRG ^
+az aks create ^
+--resource-group myRG ^
 --name myAKSClusterluiscoco1974 ^
 --node-count 1 ^
 --enable-addons monitoring ^
 --generate-ssh-keys ^
---attach-acr myregistryluiscoco1974.azurecr.io
+--attach-acr myregistryluiscoco1974 ^
+--location westeurope
 ```
 
 ## 5. Connect to Azure Kubernetes AKS Cluster
