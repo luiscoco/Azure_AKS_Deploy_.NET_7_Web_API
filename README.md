@@ -55,5 +55,15 @@ az acr login --name myregistryluiscoco1974
 docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
 ```
 
+### 3.4. Push the Image to ACR:
 
+```
+docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
+```
+
+## 4. Create Azure Kubernetes AKS Cluster
+
+```
+az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys
+```
 
