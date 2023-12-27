@@ -1,5 +1,7 @@
 # How to deploy to Azure Kubernetes AKS a Web API .NET 8
 
+https://github.com/luiscoco/SpringBoot_Sample5-deploy-WebAPI-to-Azure_Kubernetes_AKS/commits/main
+
 ## 1. Prerequisites
 
 Install **Kubectl** command in Windows: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
@@ -54,6 +56,12 @@ az acr login --name myregistryluiscoco1974
 **NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974"
 
 ### 3.3. Build your Docker image:
+
+Create a Dockerfile image:
+
+```
+
+```
 
 ```
 docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
