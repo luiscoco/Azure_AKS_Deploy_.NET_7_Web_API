@@ -24,3 +24,8 @@ az group create --name myRG --location westeurope
 
 ### 2.3. Create an ACR instance (Note: only use lowercase letters for the ACR name):
 
+```
+az acr create --resource-group myRG --name myregistryluiscoco1974 --sku Basic --location westeurope
+```
+
+
