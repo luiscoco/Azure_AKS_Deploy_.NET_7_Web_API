@@ -213,7 +213,7 @@ Replace mydotnetapp:latest with your image name and tag.
 Deploy the application using the following command:
 
 ```
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment.yml
 ```
 
 ## 6. Access to the Web API endpoint
