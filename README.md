@@ -129,35 +129,37 @@ az aks create ^
 --location westeurope
 ```
 
-## 5. Connect to Azure Kubernetes AKS Cluster
-
-To deploy your .NET 8 WebAPI Docker image, which you've pushed to your Azure Container Registry (myregistryluiscoco1974.azurecr.io), to an Azure Kubernetes Service (AKS) cluster, you'll need to follow these general steps:
+## 5. How to deploy.NET 8 WebAPI Docker image deploy to Azure AKS 
 
 Authenticate with Azure: Make sure you are logged in to Azure CLI and have access to the subscription and resources.
 
-bash
-Copy code
+```
 az login
+```
+
 Set the context to your AKS cluster: You need to get credentials for your AKS cluster and set the current context of kubectl to your cluster.
 
-bash
-Copy code
+```
 az aks get-credentials --resource-group <YourResourceGroup> --name <YourAKSClusterName>
+```
+
 Replace <YourResourceGroup> and <YourAKSClusterName> with your AKS resource group name and AKS cluster name, respectively.
 
 Create a Kubernetes Secret for ACR authentication: This step is crucial for allowing your AKS cluster to pull images from your private Azure Container Registry.
 
-bash
-Copy code
+```
 az aks update -n <YourAKSClusterName> -g <YourResourceGroup> --attach-acr <YourACRName>
+```
+
 Replace <YourACRName> with the name of your Azure Container Registry (without the domain), for example, myregistryluiscoco1974.
 
-Deploy your application: You will need a Kubernetes manifest file to define your deployment and service. This file typically is a YAML file that specifies the container image, ports, replicas, and other configurations.
+Deploy your application: You will need a Kubernetes manifest file to define your deployment and service. 
 
-Here's an example of a basic deployment YAML file (deployment.yaml):
+This file typically is a YAML file that specifies the container image, ports, replicas, and other configurations.
 
-yaml
-Copy code
+Here's an example of a basic deployment YAML file (**deployment.yaml**):
+
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -188,14 +190,15 @@ spec:
   - port: 80
   selector:
     app: my-dotnet-app
+```
+
 Replace mydotnetapp:latest with your image name and tag.
 
 Deploy the application using the following command:
 
-bash
-Copy code
+```
 kubectl apply -f deployment.yaml
-
+```
 
 ## 6. Access to the Web API endpoint
 
