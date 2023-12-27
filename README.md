@@ -67,3 +67,13 @@ docker push myregistryluiscoco1974.azurecr.io/mywebapi:v1
 az aks create --resource-group myRG --name myAKSClusterluiscoco1974 --node-count 1 --enable-addons monitoring --generate-ssh-keys
 ```
 
+## 5. Connect to Azure Kubernetes AKS Cluster
+
+```
+az aks get-credentials --resource-group myRG --name myAKSClusterluiscoco1974
+```
+
+## 6. Access to the Web API endpoint
+
+We navigate to the ResourceGroup "myRG", and Then we click in the Kubernetes service "myAKSClusterluiscoco1974":
+
