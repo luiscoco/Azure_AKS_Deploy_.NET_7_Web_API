@@ -194,7 +194,7 @@ spec:
       - name: my-dotnet-app
         image: myregistryluiscoco1974.azurecr.io/mywebapi:v1
         ports:
-        - containerPort: 80
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -203,7 +203,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+    - protocol: TCP
+      port: 80  # The port the load balancer listens on
+      targetPort: 8080  # The port the container accepts traffic on
   selector:
     app: my-dotnet-app
 ```
