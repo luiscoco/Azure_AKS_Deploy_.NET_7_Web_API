@@ -163,6 +163,10 @@ Create a Kubernetes Secret for ACR authentication: This step is crucial for allo
 az aks update -n <YourAKSClusterName> -g <YourResourceGroup> --attach-acr <YourACRName>
 ```
 
+```
+az aks update -n myAKSClusterluiscoco1974 -g myRG --attach-acr myregistryluiscoco1974
+```
+
 Replace <YourACRName> with the name of your Azure Container Registry (without the domain), for example, myregistryluiscoco1974.
 
 Deploy your application: You will need a Kubernetes manifest file to define your deployment and service. 
