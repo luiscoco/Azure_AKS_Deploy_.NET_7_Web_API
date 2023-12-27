@@ -10,6 +10,10 @@ Install **Azure CLI**: https://learn.microsoft.com/en-us/cli/azure/install-azure
 
 ## 2. Create Azure Container Registry (ACR)
 
+```
+az account set --subscription "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
 ### 2.1. Login in to Azure:
 
 ```
