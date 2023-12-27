@@ -47,4 +47,13 @@ cd /to/your/project
 az acr login --name myregistryluiscoco1974
 ```
 
+**NOTE**: if you cannot enter with this command run again "az login" and try again running the command "az acr login --name myregistryluiscoco1974"
+
+### 3.3. Build your Docker image:
+
+```
+docker build -t myregistryluiscoco1974.azurecr.io/mywebapi:v1 .
+```
+
+
 
